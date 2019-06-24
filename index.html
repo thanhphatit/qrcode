@@ -221,29 +221,18 @@ body {
 	</div>
 	
 	<div id="tab1" class="tabcontent">
-		<h3>Extension For Chrome</h3>
-		<b>ID Extension:</b><br><input type="text" name="googlepdfurl" style="width:100%" id="IDExtension"><br/>
-		<b>Version Chrome:</b><br><input type="text" name="bloggerpdfurl" style="width:100%" id="VersionChrome">
-		<br/><br>
-		<button type="button" class="btn btn-success btn-lg" style="text-align:center" onclick="GetExtension()">DOWNLOAD</button>
-		<span><button type="button" class="btn btn-link btn-lg" style="text-align:center"><a href="guide-extens-chrome.html">GUIDE</a></button></span>
+		<h3>QR Code Scanner</h3>
+		<iframe height="550px" width="100%" src="/qrscaner/scanindex/index.html"></iframe>
 	</div>
 
 	<div id="tab2" class="tabcontent">
-		<h3>NodeJS Source</h3>
-		<b>Version NodeJS:</b><br><input type="text" name="imageurl" style="width:100%" id="VersionNodeJS"><br/>
-		<br/>
-		<button type="button" class="btn btn-success btn-lg" style="text-align:center" onclick="ShowNodeJS()">SHOW</button>
-		<br>
-		<br>
+		<h3>QR Code Multi Text</h3>
 		<iframe height="550px" width="100%" src="" id="showversionnodejs"></iframe>
 	</div>
 
 	<div id="tab3" class="tabcontent">
-		<h3>ImageMagick Source</h3>
+		<h3>QR Code Link</h3>
 		<iframe height="550px" width="100%" src="https://imagemagick.org/download/" id="showimagemagick"></iframe>
-		<br>
-		<button type="button" class="btn btn-success btn-lg" style="text-align:center" onclick="ShowImageMagicK()">Delegates</button>
 	</div>
 	
 	<div id="tab4" class="tabcontent">
@@ -323,4 +312,21 @@ body {
 <footer>
   <p>Copyright @ <script>document.write(new Date().getFullYear())</script> by ThanhPhat IT</p>
 </footer>
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  hide.style.display="none";
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+</body>
 </html>
