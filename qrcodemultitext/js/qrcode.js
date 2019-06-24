@@ -559,7 +559,7 @@ var qrcode = function() {
       cellSize = cellSize || 2;
       margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
 
-      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var size = _this.getModuleCount() * cellSize + margin * 20;
 
       var img = '';
       img += '<img';

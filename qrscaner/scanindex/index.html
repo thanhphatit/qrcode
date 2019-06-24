@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>QR Scanner Demo</title>
+    <title>QR Scanner</title>
 </head>
 <body>
 <style>
@@ -22,29 +22,29 @@
 </style>
 <h1>Scan from WebCam:</h1>
 <div>
-    <b>Device has camera: </b>
+    <b>Device Has Camera: </b>
     <span id="cam-has-camera"></span>
     <br>
     <video muted playsinline id="qr-video"></video>
 </div>
 <div>
     <select id="inversion-mode-select">
-        <option value="original">Scan original (dark QR code on bright background)</option>
-        <option value="invert">Scan with inverted colors (bright QR code on dark background)</option>
-        <option value="both">Scan both</option>
+        <option value="original">Scan Original (Dark QR Code On Bright Background)</option>
+        <option value="invert">Scan With Inverted Colors (Bright QR Code On Dark Background)</option>
+        <option value="both">Scan Both</option>
     </select>
     <br>
 </div>
-<b>Detected QR code: </b>
+<b>Detected QR Code: </b>
 <span id="cam-qr-result">None</span>
 <br>
-<b>Last detected at: </b>
+<b>Last Detected At: </b>
 <span id="cam-qr-result-timestamp"></span>
 <hr>
 
-<h1>Scan from File:</h1>
+<h1>Scan From File:</h1>
 <input type="file" id="file-selector">
-<b>Detected QR code: </b>
+<b>Detected QR Code: </b>
 <span id="file-qr-result">None</span>
 
 <script type="module">
