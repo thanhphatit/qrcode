@@ -32,7 +32,7 @@
             --text: #e8e8f4;
             --muted: #5a5a7a;
             --danger: #ff4d6d;
-            --warn: #ffb347;
+            --max: 1280px;
         }
 
         html,
@@ -57,15 +57,16 @@
         body::after {
             content: '';
             position: fixed;
-            top: -30%;
-            right: -15%;
-            width: 700px;
-            height: 700px;
-            background: radial-gradient(circle, rgba(0, 245, 160, .06) 0%, transparent 65%);
+            top: -20%;
+            right: -10%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 245, 160, .055) 0%, transparent 65%);
             pointer-events: none;
             z-index: 0
         }
 
+        /* ── LAYOUT ── */
         .page {
             position: relative;
             z-index: 1;
@@ -73,10 +74,60 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 44px 16px 80px
+            padding: 40px 24px 80px
         }
 
-        /* NAV */
+        header {
+            text-align: center;
+            margin-bottom: 32px;
+            animation: fadeDown .6s ease both;
+            width: 100%;
+            max-width: var(--max)
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 245, 160, .07);
+            border: 1px solid rgba(0, 245, 160, .18);
+            border-radius: 99px;
+            padding: 5px 16px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 16px
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: blink 2s infinite
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.2rem, 4vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #fff 20%, var(--accent) 60%, var(--accent2) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px
+        }
+
+        .sub {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 13px;
+            letter-spacing: .5px
+        }
+
+        /* TOP NAV */
         .nav-tabs {
             display: flex;
             gap: 4px;
@@ -84,12 +135,12 @@
             border: 1px solid var(--border);
             border-radius: 14px;
             padding: 5px;
-            margin-bottom: 36px;
-            animation: fadeDown .6s ease both
+            margin-bottom: 32px;
+            animation: fadeDown .6s ease .05s both
         }
 
         .nav-tab {
-            padding: 10px 18px;
+            padding: 10px 22px;
             border: none;
             background: transparent;
             color: var(--muted);
@@ -113,64 +164,57 @@
             color: var(--text)
         }
 
-        /* HEADER */
-        header {
-            text-align: center;
-            margin-bottom: 36px;
-            animation: fadeDown .6s ease both
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0, 245, 160, .07);
-            border: 1px solid rgba(0, 245, 160, .18);
-            border-radius: 99px;
-            padding: 5px 14px;
-            font-size: 10px;
-            letter-spacing: 2px;
-            color: var(--accent);
-            text-transform: uppercase;
-            margin-bottom: 18px
-        }
-
-        .badge-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: blink 2s infinite
-        }
-
-        h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.6rem);
-            font-weight: 800;
-            line-height: 1.1;
-            background: linear-gradient(135deg, #fff 20%, var(--accent) 60%, var(--accent2) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -1px
-        }
-
-        .sub {
-            margin-top: 10px;
-            color: var(--muted);
-            font-size: 12px;
-            letter-spacing: .5px
-        }
-
-        /* CARD */
-        .card {
+        /* ── DESKTOP 2-COL LAYOUT ── */
+        .create-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
             width: 100%;
-            max-width: 620px;
+            max-width: var(--max);
+            align-items: start;
+        }
+
+        /* Left: form */
+        .col-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0
+        }
+
+        /* Right: live preview (sticky) */
+        .col-preview {
+            position: sticky;
+            top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Pages */
+        .page-section {
+            width: 100%;
+            max-width: var(--max);
+            display: none
+        }
+
+        .page-section.active {
+            display: block
+        }
+
+        #page-create.active {
+            display: block
+        }
+
+        /* ── CARD ── */
+        .card {
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 22px;
             padding: 32px;
-            box-shadow: 0 0 80px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .04);
+            box-shadow: 0 0 60px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .04)
+        }
+
+        .card.animated {
             animation: fadeUp .6s ease .1s both
         }
 
@@ -182,18 +226,18 @@
             background: var(--surface);
             border-radius: 12px;
             padding: 4px;
-            margin-bottom: 26px
+            margin-bottom: 24px
         }
 
         .type-tab {
             flex: 1;
-            min-width: 68px;
-            padding: 7px 4px;
+            min-width: 60px;
+            padding: 8px 4px;
             border: none;
             background: transparent;
             color: var(--muted);
             font-family: 'Space Mono', monospace;
-            font-size: 9px;
+            font-size: 10px;
             letter-spacing: .5px;
             text-transform: uppercase;
             cursor: pointer;
@@ -211,7 +255,7 @@
             color: var(--text)
         }
 
-        /* PANELS */
+        /* FORM ELEMENTS */
         .panel {
             display: none
         }
@@ -222,7 +266,7 @@
 
         label {
             display: block;
-            font-size: 10px;
+            font-size: 11px;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             color: var(--muted);
@@ -240,7 +284,7 @@
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 10px;
-            padding: 11px 14px;
+            padding: 12px 15px;
             color: var(--text);
             font-family: 'Space Mono', monospace;
             font-size: 13px;
@@ -257,7 +301,7 @@
         }
 
         textarea {
-            height: 85px
+            height: 88px
         }
 
         .field {
@@ -272,12 +316,6 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 14px
-        }
-
-        .row3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 12px
         }
 
         select {
@@ -342,8 +380,8 @@
 
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 14px;
-            height: 14px;
+            width: 15px;
+            height: 15px;
             border-radius: 50%;
             background: var(--accent);
             cursor: pointer;
@@ -354,7 +392,7 @@
             font-size: 10px;
             color: var(--accent);
             text-align: right;
-            margin-top: 3px
+            margin-top: 4px
         }
 
         .color-row {
@@ -364,8 +402,8 @@
         }
 
         input[type=color] {
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             border: 1px solid var(--border);
             border-radius: 8px;
             background: var(--surface);
@@ -376,7 +414,7 @@
 
         .color-hex {
             flex: 1;
-            padding: 8px 10px !important;
+            padding: 9px 11px !important;
             font-size: 12px !important
         }
 
@@ -389,14 +427,14 @@
 
         .style-opt {
             flex: 1;
-            padding: 10px 6px;
+            padding: 11px 6px;
             border: 1px solid var(--border);
             border-radius: 10px;
             background: var(--surface);
             cursor: pointer;
             text-align: center;
             transition: all .2s;
-            font-size: 9px;
+            font-size: 10px;
             color: var(--muted);
             letter-spacing: .5px;
             text-transform: uppercase
@@ -413,28 +451,27 @@
         }
 
         .style-icon {
-            font-size: 20px;
+            font-size: 22px;
             display: block;
-            margin-bottom: 4px
+            margin-bottom: 5px
         }
 
         /* PRESETS */
         .presets {
             display: flex;
-            gap: 7px;
+            gap: 8px;
             flex-wrap: wrap;
             margin-bottom: 4px
         }
 
         .preset {
-            width: 28px;
-            height: 28px;
-            border-radius: 7px;
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
             cursor: pointer;
             border: 2px solid transparent;
             transition: all .2s;
-            flex-shrink: 0;
-            position: relative
+            flex-shrink: 0
         }
 
         .preset:hover,
@@ -478,7 +515,7 @@
         .emoji-btn {
             font-size: 22px;
             cursor: pointer;
-            padding: 4px;
+            padding: 5px;
             border-radius: 7px;
             border: 1px solid var(--border);
             background: var(--surface);
@@ -492,40 +529,271 @@
             transform: scale(1.2)
         }
 
-        /* BATCH */
+        .clear-logo-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 8px;
+            padding: 5px 12px;
+            border: 1px solid var(--danger);
+            border-radius: 8px;
+            background: rgba(255, 77, 109, .07);
+            color: var(--danger);
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            cursor: pointer;
+            transition: all .2s;
+            letter-spacing: .5px
+        }
+
+        .clear-logo-btn:hover {
+            background: rgba(255, 77, 109, .15)
+        }
+
+        /* ── LIVE PREVIEW PANEL ── */
+        .preview-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 28px;
+            box-shadow: 0 0 60px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .04)
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px
+        }
+
+        .preview-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 1px;
+            text-transform: uppercase
+        }
+
+        .preview-status {
+            font-size: 9px;
+            padding: 3px 10px;
+            border-radius: 99px;
+            letter-spacing: 1px;
+            border: 1px solid var(--border);
+            color: var(--muted)
+        }
+
+        .preview-status.ready {
+            border-color: rgba(0, 245, 160, .3);
+            color: var(--accent);
+            background: rgba(0, 245, 160, .08)
+        }
+
+        .qr-canvas-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            min-height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qr-canvas-wrap canvas {
+            border-radius: 8px;
+            max-width: 100%;
+            display: block
+        }
+
+        .qr-placeholder {
+            text-align: center;
+            color: var(--muted)
+        }
+
+        .qr-placeholder-icon {
+            font-size: 52px;
+            margin-bottom: 12px;
+            opacity: .4
+        }
+
+        .qr-placeholder-text {
+            font-size: 12px;
+            line-height: 1.7;
+            opacity: .6
+        }
+
+        /* Shimmer when generating */
+        .qr-canvas-wrap.generating::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(0, 245, 160, .06) 50%, transparent 100%);
+            animation: shimmer 1s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%)
+            }
+
+            100% {
+                transform: translateX(100%)
+            }
+        }
+
+        /* DOWNLOAD ACTIONS */
+        .dl-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px
+        }
+
+        .btn-dl {
+            padding: 11px 8px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            letter-spacing: .3px;
+            text-transform: uppercase
+        }
+
+        .btn-dl:hover:not(:disabled) {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(0, 245, 160, .06)
+        }
+
+        .btn-dl.primary {
+            background: rgba(0, 245, 160, .1);
+            border-color: rgba(0, 245, 160, .3);
+            color: var(--accent)
+        }
+
+        .btn-dl.primary:hover:not(:disabled) {
+            background: rgba(0, 245, 160, .2)
+        }
+
+        .btn-dl:disabled {
+            opacity: .3;
+            cursor: not-allowed
+        }
+
+        .btn-dl-icon {
+            font-size: 14px
+        }
+
+        .dl-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px
+        }
+
+        /* GENERATE BTN */
+        .btn-gen {
+            width: 100%;
+            margin-top: 24px;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border: none;
+            border-radius: 13px;
+            color: #080810;
+            font-family: 'Syne', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: transform .15s, box-shadow .15s;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden
+        }
+
+        .btn-gen::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, .2), transparent);
+            transform: translateX(-100%);
+            transition: transform .5s
+        }
+
+        .btn-gen:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 245, 160, .4)
+        }
+
+        .btn-gen:hover::before {
+            transform: translateX(100%)
+        }
+
+        .btn-gen:active {
+            transform: translateY(0)
+        }
+
+        /* ── BATCH ── */
+        .batch-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: start
+        }
+
         .batch-row {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 10px;
             align-items: flex-start
         }
 
         .batch-row textarea {
             flex: 1;
-            height: 60px;
-            font-size: 12px
+            height: 58px;
+            font-size: 13px
         }
 
+        /* Beautiful delete button */
         .batch-del {
-            background: none;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--danger);
-            cursor: pointer;
-            padding: 6px 10px;
-            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
             flex-shrink: 0;
-            transition: all .2s
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 16px;
+            transition: all .2s;
+            line-height: 1;
         }
 
         .batch-del:hover {
-            background: rgba(255, 77, 109, .1);
-            border-color: var(--danger)
+            background: rgba(255, 77, 109, .12);
+            border-color: var(--danger);
+            color: var(--danger);
+            transform: scale(1.05)
         }
 
         .btn-add-batch {
             width: 100%;
-            padding: 10px;
+            padding: 11px;
             border: 1px dashed var(--border);
             border-radius: 10px;
             background: transparent;
@@ -534,26 +802,27 @@
             font-family: 'Space Mono', monospace;
             font-size: 12px;
             transition: all .2s;
-            margin-bottom: 12px
+            margin-bottom: 14px
         }
 
         .btn-add-batch:hover {
             border-color: var(--accent);
-            color: var(--accent)
+            color: var(--accent);
+            background: rgba(0, 245, 160, .04)
         }
 
         .batch-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 14px;
-            margin-top: 16px
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 16px;
+            margin-top: 0
         }
 
         .batch-item {
             background: var(--card2);
             border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 14px;
+            border-radius: 16px;
+            padding: 16px;
             text-align: center
         }
 
@@ -565,33 +834,43 @@
         .batch-item-label {
             font-size: 9px;
             color: var(--muted);
-            margin-top: 8px;
+            margin-top: 10px;
             word-break: break-all;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            overflow: hidden
+            overflow: hidden;
+            line-height: 1.5
         }
 
-        .batch-dl {
-            margin-top: 8px;
-            padding: 6px;
+        .batch-dl-btn {
+            margin-top: 10px;
+            padding: 7px;
             width: 100%;
             border: 1px solid var(--border);
-            border-radius: 7px;
+            border-radius: 8px;
             background: transparent;
             color: var(--accent);
             font-size: 10px;
             cursor: pointer;
             font-family: 'Space Mono', monospace;
-            transition: all .2s
+            transition: all .2s;
+            letter-spacing: .3px
         }
 
-        .batch-dl:hover {
-            background: rgba(0, 245, 160, .08)
+        .batch-dl-btn:hover {
+            background: rgba(0, 245, 160, .08);
+            border-color: var(--accent)
         }
 
-        /* SCAN */
+        .batch-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        /* ── SCAN ── */
         .scan-tabs {
             display: flex;
             gap: 4px;
@@ -603,7 +882,7 @@
 
         .scan-tab {
             flex: 1;
-            padding: 8px;
+            padding: 9px;
             border: none;
             background: transparent;
             color: var(--muted);
@@ -621,6 +900,10 @@
             color: var(--accent2)
         }
 
+        .scan-tab:hover:not(.active) {
+            color: var(--text)
+        }
+
         .scan-panel {
             display: none
         }
@@ -632,7 +915,7 @@
         .drop-zone {
             border: 2px dashed var(--border);
             border-radius: 14px;
-            padding: 36px 20px;
+            padding: 44px 20px;
             text-align: center;
             cursor: pointer;
             transition: all .2s;
@@ -659,7 +942,7 @@
             width: 100%;
             border-radius: 14px;
             display: none;
-            max-height: 300px;
+            max-height: 320px;
             object-fit: cover;
             border: 1px solid var(--border)
         }
@@ -685,8 +968,8 @@
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 16px;
-            margin-top: 16px;
+            padding: 18px;
+            margin-top: 18px;
             display: none
         }
 
@@ -695,24 +978,39 @@
             letter-spacing: 1.5px;
             text-transform: uppercase;
             color: var(--accent2);
-            margin-bottom: 8px
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .scan-result-label::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent2);
+            border-radius: 50%
         }
 
         .scan-result-text {
             word-break: break-all;
             font-size: 13px;
-            line-height: 1.6
+            line-height: 1.7;
+            padding: 12px;
+            background: var(--card2);
+            border-radius: 8px;
+            border: 1px solid var(--border)
         }
 
         .scan-actions {
             display: flex;
             gap: 8px;
-            margin-top: 10px;
+            margin-top: 12px;
             flex-wrap: wrap
         }
 
         .scan-act-btn {
-            padding: 7px 14px;
+            padding: 8px 16px;
             border: 1px solid var(--border);
             border-radius: 8px;
             background: var(--surface);
@@ -728,10 +1026,10 @@
             color: var(--accent2)
         }
 
-        /* HISTORY */
+        /* ── HISTORY ── */
         .history-empty {
             text-align: center;
-            padding: 48px 20px;
+            padding: 56px 20px;
             color: var(--muted);
             font-size: 13px
         }
@@ -745,18 +1043,23 @@
         .hist-item {
             background: var(--card2);
             border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 16px;
+            border-radius: 16px;
+            padding: 18px;
             display: flex;
             align-items: center;
-            gap: 14px
+            gap: 16px;
+            transition: border-color .2s
+        }
+
+        .hist-item:hover {
+            border-color: var(--border2)
         }
 
         .hist-thumb {
             flex-shrink: 0;
-            width: 64px;
-            height: 64px;
-            border-radius: 8px;
+            width: 68px;
+            height: 68px;
+            border-radius: 10px;
             overflow: hidden;
             background: #fff;
             display: flex;
@@ -778,11 +1081,12 @@
             letter-spacing: 1.5px;
             text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 3px
+            margin-bottom: 4px;
+            font-weight: 700
         }
 
         .hist-data {
-            font-size: 12px;
+            font-size: 13px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -792,7 +1096,7 @@
         .hist-time {
             font-size: 10px;
             color: var(--muted);
-            margin-top: 4px
+            margin-top: 5px
         }
 
         .hist-actions {
@@ -802,174 +1106,52 @@
         }
 
         .hist-btn {
-            padding: 6px 10px;
+            padding: 7px 12px;
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 9px;
             background: var(--surface);
             color: var(--muted);
-            font-size: 10px;
+            font-size: 11px;
             cursor: pointer;
             transition: all .2s;
-            font-family: 'Space Mono', monospace
+            font-family: 'Space Mono', monospace;
+            letter-spacing: .3px
         }
 
         .hist-btn:hover {
             border-color: var(--accent);
-            color: var(--accent)
+            color: var(--accent);
+            background: rgba(0, 245, 160, .06)
+        }
+
+        /* Xoá button đẹp */
+        .hist-btn.danger {
+            border-color: transparent
         }
 
         .hist-btn.danger:hover {
             border-color: var(--danger);
-            color: var(--danger)
+            color: var(--danger);
+            background: rgba(255, 77, 109, .08)
         }
 
         .hist-clear {
             width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border);
+            padding: 11px;
+            border: 1px solid rgba(255, 77, 109, .3);
             border-radius: 10px;
             background: transparent;
             color: var(--danger);
             font-family: 'Space Mono', monospace;
             font-size: 11px;
             cursor: pointer;
-            margin-top: 14px;
-            transition: all .2s
+            margin-top: 16px;
+            transition: all .2s;
+            letter-spacing: .5px
         }
 
         .hist-clear:hover {
             background: rgba(255, 77, 109, .08)
-        }
-
-        /* GENERATE BTN */
-        .btn-gen {
-            width: 100%;
-            margin-top: 24px;
-            padding: 14px;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-            border: none;
-            border-radius: 13px;
-            color: #080810;
-            font-family: 'Syne', sans-serif;
-            font-size: 15px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: transform .15s, box-shadow .15s;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden
-        }
-
-        .btn-gen:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 36px rgba(0, 245, 160, .35)
-        }
-
-        .btn-gen:active {
-            transform: translateY(0)
-        }
-
-        /* OUTPUT */
-        .output {
-            width: 100%;
-            max-width: 620px;
-            margin-top: 24px;
-            display: none
-        }
-
-        .output.show {
-            display: block;
-            animation: fadeUp .5s ease
-        }
-
-        .qr-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 22px;
-            padding: 32px;
-            box-shadow: 0 0 60px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .04)
-        }
-
-        .qr-head {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 24px
-        }
-
-        .qr-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--accent);
-            letter-spacing: 1px;
-            text-transform: uppercase
-        }
-
-        .qr-badge {
-            font-size: 9px;
-            background: rgba(0, 245, 160, .1);
-            color: var(--accent);
-            border: 1px solid rgba(0, 245, 160, .2);
-            border-radius: 99px;
-            padding: 3px 10px;
-            letter-spacing: 1px
-        }
-
-        #qr-display {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 24px
-        }
-
-        #qr-display canvas {
-            border-radius: 12px;
-            max-width: 100%
-        }
-
-        .qr-actions-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px
-        }
-
-        .btn-act {
-            padding: 11px 6px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            background: var(--surface);
-            color: var(--text);
-            font-family: 'Space Mono', monospace;
-            font-size: 9px;
-            cursor: pointer;
-            transition: all .2s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            letter-spacing: .3px;
-            text-transform: uppercase
-        }
-
-        .btn-act-icon {
-            font-size: 15px
-        }
-
-        .btn-act:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            background: rgba(0, 245, 160, .06)
-        }
-
-        .btn-act.primary {
-            background: rgba(0, 245, 160, .1);
-            border-color: rgba(0, 245, 160, .3);
-            color: var(--accent)
-        }
-
-        .btn-act.primary:hover {
-            background: rgba(0, 245, 160, .2)
         }
 
         /* TOAST */
@@ -983,14 +1165,14 @@
             color: var(--text);
             font-family: 'Space Mono', monospace;
             font-size: 12px;
-            padding: 10px 22px;
+            padding: 11px 24px;
             border-radius: 99px;
             opacity: 0;
             transition: all .3s;
             pointer-events: none;
-            z-index: 999;
+            z-index: 9999;
             letter-spacing: .5px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, .4)
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .5)
         }
 
         .toast.show {
@@ -1008,10 +1190,11 @@
             color: var(--danger)
         }
 
+        /* ANIMATIONS */
         @keyframes fadeDown {
             from {
                 opacity: 0;
-                transform: translateY(-20px)
+                transform: translateY(-18px)
             }
 
             to {
@@ -1023,7 +1206,7 @@
         @keyframes fadeUp {
             from {
                 opacity: 0;
-                transform: translateY(20px)
+                transform: translateY(18px)
             }
 
             to {
@@ -1040,7 +1223,7 @@
             }
 
             50% {
-                opacity: .3
+                opacity: .25
             }
         }
 
@@ -1054,22 +1237,62 @@
             }
         }
 
-        @media(max-width:500px) {
+        @keyframes popIn {
+            0% {
+                transform: scale(.85);
+                opacity: 0
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        /* Tablet */
+        @media(max-width:900px) {
+            .create-layout {
+                grid-template-columns: 1fr
+            }
+
+            .col-preview {
+                position: static
+            }
+
+            .batch-layout {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* Mobile */
+        @media(max-width:560px) {
+            .page {
+                padding: 28px 14px 60px
+            }
+
+            .card {
+                padding: 20px
+            }
+
+            .preview-card {
+                padding: 20px
+            }
+
             .opts {
                 grid-template-columns: 1fr
             }
 
-            .qr-actions-grid {
-                grid-template-columns: repeat(2, 1fr)
-            }
-
-            .card,
-            .qr-card {
-                padding: 20px
-            }
-
             .row2 {
                 grid-template-columns: 1fr
+            }
+
+            .dl-grid {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .dl-row {
+                grid-template-columns: 1fr 1fr 1fr
             }
 
             .nav-tabs {
@@ -1077,9 +1300,13 @@
             }
 
             .nav-tab {
-                padding: 8px 8px;
+                padding: 8px 10px;
                 font-size: 9px;
                 letter-spacing: .5px
+            }
+
+            .hist-actions {
+                flex-direction: column
             }
         }
     </style>
@@ -1099,7 +1326,6 @@
             <link rel="manifest" href="assets/favicons/site.webmanifest" />
         </header>
 
-        <!-- NAV -->
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="switchNav('create',this)">⚡ Tạo QR</button>
             <button class="nav-tab" onclick="switchNav('batch',this)">📦 Batch</button>
@@ -1107,331 +1333,385 @@
             <button class="nav-tab" onclick="switchNav('history',this)">🕘 Lịch sử</button>
         </div>
 
-        <!-- ══════════ CREATE ══════════ -->
-        <div id="page-create" style="width:100%;max-width:620px;display:flex;flex-direction:column;align-items:center">
-            <div class="card">
+        <!-- ══════════════════ CREATE ══════════════════ -->
+        <div id="page-create" class="page-section active">
+            <div class="create-layout">
 
-                <div class="type-tabs">
-                    <button class="type-tab active" onclick="switchType('url',this)">🔗 URL</button>
-                    <button class="type-tab" onclick="switchType('text',this)">📝 Text</button>
-                    <button class="type-tab" onclick="switchType('wifi',this)">📶 WiFi</button>
-                    <button class="type-tab" onclick="switchType('contact',this)">👤 vCard</button>
-                    <button class="type-tab" onclick="switchType('email',this)">✉️ Email</button>
-                    <button class="type-tab" onclick="switchType('sms',this)">💬 SMS</button>
-                    <button class="type-tab" onclick="switchType('maps',this)">📍 Maps</button>
-                    <button class="type-tab" onclick="switchType('phone',this)">📞 Phone</button>
-                    <button class="type-tab" onclick="switchType('appstore',this)">📱 App</button>
-                </div>
+                <!-- LEFT: FORM -->
+                <div class="col-form">
+                    <div class="card animated">
 
-                <!-- URL -->
-                <div class="panel active" id="panel-url">
-                    <div class="field"><label>Địa chỉ Website / URL</label>
-                        <input type="url" id="in-url" placeholder="https://example.com" />
-                    </div>
-                </div>
-                <!-- TEXT -->
-                <div class="panel" id="panel-text">
-                    <div class="field"><label>Nội dung văn bản</label>
-                        <textarea id="in-text" placeholder="Nhập bất kỳ nội dung nào..."></textarea>
-                    </div>
-                </div>
-                <!-- WIFI -->
-                <div class="panel" id="panel-wifi">
-                    <div class="field"><label>Tên mạng (SSID)</label><input type="text" id="wf-ssid"
-                            placeholder="Tên WiFi" /></div>
-                    <div class="row2">
-                        <div class="field"><label>Mật khẩu</label><input type="text" id="wf-pass"
-                                placeholder="Password" /></div>
-                        <div class="field"><label>Bảo mật</label>
-                            <select id="wf-enc">
-                                <option value="WPA">WPA/WPA2</option>
-                                <option value="WEP">WEP</option>
-                                <option value="">Không có</option>
-                            </select>
+                        <!-- TYPE TABS -->
+                        <div class="type-tabs">
+                            <button class="type-tab active" onclick="switchType('url',this)">🔗 URL</button>
+                            <button class="type-tab" onclick="switchType('text',this)">📝 Text</button>
+                            <button class="type-tab" onclick="switchType('wifi',this)">📶 WiFi</button>
+                            <button class="type-tab" onclick="switchType('contact',this)">👤 vCard</button>
+                            <button class="type-tab" onclick="switchType('email',this)">✉️ Email</button>
+                            <button class="type-tab" onclick="switchType('sms',this)">💬 SMS</button>
+                            <button class="type-tab" onclick="switchType('maps',this)">📍 Maps</button>
+                            <button class="type-tab" onclick="switchType('phone',this)">📞 Phone</button>
+                            <button class="type-tab" onclick="switchType('appstore',this)">📱 App</button>
                         </div>
-                    </div>
-                </div>
-                <!-- CONTACT -->
-                <div class="panel" id="panel-contact">
-                    <div class="row2">
-                        <div class="field"><label>Họ tên</label><input type="text" id="ct-name"
-                                placeholder="Nguyễn Văn A" /></div>
-                        <div class="field"><label>Điện thoại</label><input type="tel" id="ct-phone"
-                                placeholder="+84 ..." /></div>
-                    </div>
-                    <div class="row2">
-                        <div class="field"><label>Email</label><input type="email" id="ct-email"
-                                placeholder="email@..." /></div>
-                        <div class="field"><label>Website</label><input type="url" id="ct-web"
-                                placeholder="https://..." /></div>
-                    </div>
-                    <div class="row2">
-                        <div class="field"><label>Công ty</label><input type="text" id="ct-org"
-                                placeholder="Công ty ABC" /></div>
-                        <div class="field"><label>Chức vụ</label><input type="text" id="ct-title2"
-                                placeholder="Giám đốc" /></div>
-                    </div>
-                    <div class="field"><label>Địa chỉ</label><input type="text" id="ct-addr"
-                            placeholder="123 Đường..., TP.HCM" /></div>
-                </div>
-                <!-- EMAIL -->
-                <div class="panel" id="panel-email">
-                    <div class="field"><label>Gửi đến (To)</label><input type="email" id="em-to"
-                            placeholder="recipient@email.com" /></div>
-                    <div class="field"><label>Tiêu đề (Subject)</label><input type="text" id="em-sub"
-                            placeholder="Tiêu đề email..." /></div>
-                    <div class="field"><label>Nội dung (Body)</label><textarea id="em-body"
-                            placeholder="Nội dung email..."></textarea></div>
-                </div>
-                <!-- SMS -->
-                <div class="panel" id="panel-sms">
-                    <div class="field"><label>Số điện thoại</label><input type="tel" id="sms-num"
-                            placeholder="+84 ..." /></div>
-                    <div class="field"><label>Nội dung SMS</label><textarea id="sms-msg"
-                            placeholder="Nội dung tin nhắn..."></textarea></div>
-                </div>
-                <!-- MAPS -->
-                <div class="panel" id="panel-maps">
-                    <div class="row2">
-                        <div class="field"><label>Vĩ độ (Latitude)</label><input type="number" id="map-lat"
-                                placeholder="10.7769" step="any" /></div>
-                        <div class="field"><label>Kinh độ (Longitude)</label><input type="number" id="map-lng"
-                                placeholder="106.7009" step="any" /></div>
-                    </div>
-                    <div class="field"><label>Tên địa điểm (tuỳ chọn)</label><input type="text" id="map-name"
-                            placeholder="Landmark 81" /></div>
-                    <div style="text-align:center;font-size:10px;color:var(--muted);margin:8px 0">— hoặc —</div>
-                    <div class="field"><label>Tìm kiếm theo địa chỉ</label><input type="text" id="map-query"
-                            placeholder="Landmark 81, TP.HCM, Việt Nam" /></div>
-                </div>
-                <!-- PHONE -->
-                <div class="panel" id="panel-phone">
-                    <div class="field"><label>Số điện thoại</label><input type="tel" id="ph-num"
-                            placeholder="+84 906 123 456" /></div>
-                </div>
-                <!-- APP STORE -->
-                <div class="panel" id="panel-appstore">
-                    <div class="field"><label>Nền tảng</label>
-                        <select id="app-platform">
-                            <option value="apple">🍎 App Store (iOS/macOS)</option>
-                            <option value="google">🤖 Google Play (Android)</option>
-                            <option value="huawei">📱 Huawei AppGallery</option>
-                            <option value="custom">🔗 Link tùy chỉnh</option>
-                        </select>
-                    </div>
-                    <div class="field"><label>App ID hoặc Package Name</label>
-                        <input type="text" id="app-id" placeholder="284882215 hoặc com.facebook.katana" />
-                    </div>
-                    <p style="font-size:10px;color:var(--muted)">iOS: ID số · Android: package name (com.xxx.xxx)</p>
-                </div>
 
-                <hr class="divider" />
-
-                <!-- STYLE -->
-                <div class="sec-title">🎨 Kiểu dáng QR</div>
-                <div class="style-opts" style="margin-bottom:18px">
-                    <div class="style-opt active" onclick="setStyle('classic',this)"><span
-                            class="style-icon">⬛</span>Classic</div>
-                    <div class="style-opt" onclick="setStyle('rounded',this)"><span class="style-icon">🔵</span>Rounded
-                    </div>
-                    <div class="style-opt" onclick="setStyle('dots',this)"><span class="style-icon">⚫</span>Dots</div>
-                </div>
-
-                <!-- PRESETS -->
-                <div class="sec-title">⚡ Màu nhanh</div>
-                <div class="presets" style="margin-bottom:18px">
-                    <div class="preset active" style="background:#000" onclick="applyPreset('#000000','#ffffff',this)"
-                        title="Đen & Trắng"></div>
-                    <div class="preset" style="background:#00b894" onclick="applyPreset('#00b894','#ffffff',this)"
-                        title="Emerald"></div>
-                    <div class="preset" style="background:#7c3aed" onclick="applyPreset('#7c3aed','#ffffff',this)"
-                        title="Violet"></div>
-                    <div class="preset" style="background:#e11d48" onclick="applyPreset('#e11d48','#ffffff',this)"
-                        title="Rose"></div>
-                    <div class="preset" style="background:#ea580c" onclick="applyPreset('#ea580c','#ffffff',this)"
-                        title="Orange"></div>
-                    <div class="preset" style="background:#2563eb" onclick="applyPreset('#2563eb','#ffffff',this)"
-                        title="Blue"></div>
-                    <div class="preset" style="background:#0891b2" onclick="applyPreset('#0891b2','#ffffff',this)"
-                        title="Cyan"></div>
-                    <div class="preset" style="background:#be185d" onclick="applyPreset('#be185d','#ffffff',this)"
-                        title="Pink"></div>
-                    <div class="preset" style="background:#00f5a0" onclick="applyPreset('#00f5a0','#080810',this)"
-                        title="Neon on Dark"></div>
-                    <div class="preset" style="background:#1a1a2e" onclick="applyPreset('#ffffff','#1a1a2e',this)"
-                        title="White on Dark"></div>
-                </div>
-
-                <!-- CUSTOM OPTIONS -->
-                <div class="sec-title">⚙️ Tuỳ chỉnh chi tiết</div>
-                <div class="opts">
-                    <div>
-                        <span class="opt-label">Kích thước QR</span>
-                        <input type="range" id="qr-size" min="128" max="512" value="256" step="32"
-                            oninput="document.getElementById('sz-lbl').textContent=this.value+'×'+this.value" />
-                        <div class="slider-val" id="sz-lbl">256×256</div>
-                    </div>
-                    <div>
-                        <span class="opt-label">Mức sửa lỗi</span>
-                        <select id="qr-level">
-                            <option value="L">L — Thấp (7%)</option>
-                            <option value="M" selected>M — Trung (15%)</option>
-                            <option value="Q">Q — Cao (25%)</option>
-                            <option value="H">H — Tối đa (30%)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <span class="opt-label">Màu mã QR</span>
-                        <div class="color-row">
-                            <input type="color" id="qr-dark" value="#000000" oninput="syncH('qr-dark','hx-dark')" />
-                            <input type="text" class="color-hex" id="hx-dark" value="#000000" maxlength="7"
-                                oninput="syncP('hx-dark','qr-dark')" />
+                        <!-- URL -->
+                        <div class="panel active" id="panel-url">
+                            <div class="field"><label>Địa chỉ Website / URL</label>
+                                <input type="url" id="in-url" placeholder="https://example.com"
+                                    oninput="debouncedGenerate()" />
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <span class="opt-label">Màu nền</span>
-                        <div class="color-row">
-                            <input type="color" id="qr-light" value="#ffffff" oninput="syncH('qr-light','hx-light')" />
-                            <input type="text" class="color-hex" id="hx-light" value="#ffffff" maxlength="7"
-                                oninput="syncP('hx-light','qr-light')" />
+                        <!-- TEXT -->
+                        <div class="panel" id="panel-text">
+                            <div class="field"><label>Nội dung văn bản</label>
+                                <textarea id="in-text" placeholder="Nhập bất kỳ nội dung nào..."
+                                    oninput="debouncedGenerate()"></textarea>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                        <!-- WIFI -->
+                        <div class="panel" id="panel-wifi">
+                            <div class="field"><label>Tên mạng (SSID)</label><input type="text" id="wf-ssid"
+                                    placeholder="Tên WiFi" oninput="debouncedGenerate()" /></div>
+                            <div class="row2">
+                                <div class="field"><label>Mật khẩu</label><input type="text" id="wf-pass"
+                                        placeholder="Password" oninput="debouncedGenerate()" /></div>
+                                <div class="field"><label>Bảo mật</label>
+                                    <select id="wf-enc" onchange="debouncedGenerate()">
+                                        <option value="WPA">WPA/WPA2</option>
+                                        <option value="WEP">WEP</option>
+                                        <option value="">Không có</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- CONTACT -->
+                        <div class="panel" id="panel-contact">
+                            <div class="row2">
+                                <div class="field"><label>Họ tên</label><input type="text" id="ct-name"
+                                        placeholder="Nguyễn Văn A" oninput="debouncedGenerate()" /></div>
+                                <div class="field"><label>Điện thoại</label><input type="tel" id="ct-phone"
+                                        placeholder="+84 ..." oninput="debouncedGenerate()" /></div>
+                            </div>
+                            <div class="row2">
+                                <div class="field"><label>Email</label><input type="email" id="ct-email"
+                                        placeholder="email@..." oninput="debouncedGenerate()" /></div>
+                                <div class="field"><label>Website</label><input type="url" id="ct-web"
+                                        placeholder="https://..." oninput="debouncedGenerate()" /></div>
+                            </div>
+                            <div class="row2">
+                                <div class="field"><label>Công ty</label><input type="text" id="ct-org"
+                                        placeholder="Công ty ABC" oninput="debouncedGenerate()" /></div>
+                                <div class="field"><label>Chức vụ</label><input type="text" id="ct-job"
+                                        placeholder="Giám đốc" oninput="debouncedGenerate()" /></div>
+                            </div>
+                            <div class="field"><label>Địa chỉ</label><input type="text" id="ct-addr"
+                                    placeholder="123 Đường..., TP.HCM" oninput="debouncedGenerate()" /></div>
+                        </div>
+                        <!-- EMAIL -->
+                        <div class="panel" id="panel-email">
+                            <div class="field"><label>Gửi đến (To)</label><input type="email" id="em-to"
+                                    placeholder="recipient@email.com" oninput="debouncedGenerate()" /></div>
+                            <div class="field"><label>Tiêu đề (Subject)</label><input type="text" id="em-sub"
+                                    placeholder="Tiêu đề email..." oninput="debouncedGenerate()" /></div>
+                            <div class="field"><label>Nội dung (Body)</label><textarea id="em-body"
+                                    placeholder="Nội dung email..." oninput="debouncedGenerate()"></textarea></div>
+                        </div>
+                        <!-- SMS -->
+                        <div class="panel" id="panel-sms">
+                            <div class="field"><label>Số điện thoại</label><input type="tel" id="sms-num"
+                                    placeholder="+84 ..." oninput="debouncedGenerate()" /></div>
+                            <div class="field"><label>Nội dung SMS</label><textarea id="sms-msg"
+                                    placeholder="Nội dung tin nhắn..." oninput="debouncedGenerate()"></textarea></div>
+                        </div>
+                        <!-- MAPS -->
+                        <div class="panel" id="panel-maps">
+                            <div class="row2">
+                                <div class="field"><label>Vĩ độ (Latitude)</label><input type="number" id="map-lat"
+                                        placeholder="10.7769" step="any" oninput="debouncedGenerate()" /></div>
+                                <div class="field"><label>Kinh độ (Longitude)</label><input type="number" id="map-lng"
+                                        placeholder="106.7009" step="any" oninput="debouncedGenerate()" /></div>
+                            </div>
+                            <div class="field"><label>Tên địa điểm (tuỳ chọn)</label><input type="text" id="map-name"
+                                    placeholder="Landmark 81" oninput="debouncedGenerate()" /></div>
+                            <div style="text-align:center;font-size:10px;color:var(--muted);margin:8px 0">— hoặc —</div>
+                            <div class="field"><label>Tìm kiếm theo địa chỉ</label><input type="text" id="map-query"
+                                    placeholder="Landmark 81, TP.HCM" oninput="debouncedGenerate()" /></div>
+                        </div>
+                        <!-- PHONE -->
+                        <div class="panel" id="panel-phone">
+                            <div class="field"><label>Số điện thoại</label><input type="tel" id="ph-num"
+                                    placeholder="+84 906 123 456" oninput="debouncedGenerate()" /></div>
+                        </div>
+                        <!-- APP STORE -->
+                        <div class="panel" id="panel-appstore">
+                            <div class="field"><label>Nền tảng</label>
+                                <select id="app-platform" onchange="debouncedGenerate()">
+                                    <option value="apple">🍎 App Store (iOS/macOS)</option>
+                                    <option value="google">🤖 Google Play (Android)</option>
+                                    <option value="huawei">📱 Huawei AppGallery</option>
+                                    <option value="custom">🔗 Link tùy chỉnh</option>
+                                </select>
+                            </div>
+                            <div class="field"><label>App ID hoặc Package Name</label>
+                                <input type="text" id="app-id" placeholder="284882215 hoặc com.facebook.katana"
+                                    oninput="debouncedGenerate()" />
+                            </div>
+                            <p style="font-size:11px;color:var(--muted);margin-top:-8px">iOS: ID số · Android: package
+                                name</p>
+                        </div>
 
-                <!-- LOGO -->
-                <hr class="divider" />
-                <div class="sec-title">🖼 Logo / Emoji ở giữa</div>
-                <div class="logo-zone" onclick="document.getElementById('logo-file').click()">
-                    <input type="file" id="logo-file" accept="image/*" style="display:none"
-                        onchange="handleLogo(event)" />
-                    <img id="logo-preview" />
-                    <div id="logo-hint" style="font-size:12px;color:var(--muted)">📁 Click để upload ảnh/logo</div>
-                    <div id="logo-fname" style="font-size:10px;color:var(--accent);margin-top:4px;display:none"></div>
-                </div>
-                <div style="text-align:center;margin:10px 0;font-size:10px;color:var(--muted)">— hoặc chọn emoji —</div>
-                <div class="emoji-row">
-                    <span class="emoji-btn" onclick="setEmoji(this,'🏠')">🏠</span>
-                    <span class="emoji-btn" onclick="setEmoji(this,'❤️')">❤️</span>
-                    <span class="emoji-btn" onclick="setEmoji(this,'⭐')">⭐</span>
-                    <span class="emoji-btn" onclick="setEmoji(this,'🔥')">🔥</span>
-                    <span class="emoji-btn" onclick="setEmoji(this,'💎')">💎</span>
-                    <span class="emoji-btn" onclick="setEmoji(this,'🚀')">🚀</span>
-                    <span class="emoji-btn" onclick="setEmoji(this,'📱')">📱</span>
-                    <span class="emoji-btn" onclick="setEmoji(this,'🌐')">🌐</span>
-                    <span class="emoji-btn" onclick="setEmoji(this,'🎵')">🎵</span>
-                    <span class="emoji-btn" onclick="setEmoji(this,'✅')">✅</span>
-                    <span class="emoji-btn" style="font-size:13px;color:var(--danger)" onclick="clearLogo()">✕
-                        Xoá</span>
-                </div>
-                <div id="logo-size-wrap" style="margin-top:14px;display:none">
-                    <span class="opt-label">Kích thước logo</span>
-                    <input type="range" id="logo-size" min="10" max="35" value="20"
-                        oninput="document.getElementById('ls-lbl').textContent=this.value+'%'" />
-                    <div class="slider-val" id="ls-lbl">20%</div>
-                </div>
+                        <hr class="divider" />
 
-                <button class="btn-gen" onclick="generateQR()">▶ Tạo Mã QR</button>
-            </div><!-- /card -->
+                        <!-- STYLE -->
+                        <div class="sec-title">🎨 Kiểu dáng QR</div>
+                        <div class="style-opts" style="margin-bottom:20px">
+                            <div class="style-opt active" onclick="setStyle('classic',this)"><span
+                                    class="style-icon">⬛</span>Classic</div>
+                            <div class="style-opt" onclick="setStyle('rounded',this)"><span
+                                    class="style-icon">🔵</span>Rounded</div>
+                            <div class="style-opt" onclick="setStyle('dots',this)"><span class="style-icon">⚫</span>Dots
+                            </div>
+                        </div>
 
-            <!-- OUTPUT -->
-            <div class="output" id="output">
-                <div class="qr-card">
-                    <div class="qr-head">
-                        <span class="qr-title">Mã QR của bạn</span>
-                        <span class="qr-badge">✓ SCAN READY</span>
-                    </div>
-                    <div id="qr-display"></div>
-                    <div class="qr-actions-grid">
-                        <button class="btn-act primary" onclick="dlQR('png')"><span
-                                class="btn-act-icon">⬇</span>PNG</button>
-                        <button class="btn-act primary" onclick="dlQR('jpg')"><span
-                                class="btn-act-icon">⬇</span>JPEG</button>
-                        <button class="btn-act" onclick="dlQR('svg')"><span class="btn-act-icon">⬇</span>SVG</button>
-                        <button class="btn-act" onclick="copyQR()"><span class="btn-act-icon">⎘</span>Copy</button>
-                        <button class="btn-act" onclick="shareQR()"><span class="btn-act-icon">↗</span>Share</button>
-                        <button class="btn-act" onclick="printQR()"><span class="btn-act-icon">🖨</span>Print</button>
-                        <button class="btn-act" onclick="addCurrentToBatch()"><span
-                                class="btn-act-icon">📦</span>Batch</button>
-                        <button class="btn-act" onclick="generateQR()"><span
-                                class="btn-act-icon">↺</span>Refresh</button>
-                    </div>
-                </div>
-            </div>
+                        <!-- PRESETS -->
+                        <div class="sec-title">⚡ Màu nhanh</div>
+                        <div class="presets" style="margin-bottom:20px">
+                            <div class="preset active" style="background:#000"
+                                onclick="applyPreset('#000000','#ffffff',this)" title="Black & White"></div>
+                            <div class="preset" style="background:#00b894"
+                                onclick="applyPreset('#00b894','#ffffff',this)" title="Emerald"></div>
+                            <div class="preset" style="background:#7c3aed"
+                                onclick="applyPreset('#7c3aed','#ffffff',this)" title="Violet"></div>
+                            <div class="preset" style="background:#e11d48"
+                                onclick="applyPreset('#e11d48','#ffffff',this)" title="Rose"></div>
+                            <div class="preset" style="background:#ea580c"
+                                onclick="applyPreset('#ea580c','#ffffff',this)" title="Orange"></div>
+                            <div class="preset" style="background:#2563eb"
+                                onclick="applyPreset('#2563eb','#ffffff',this)" title="Blue"></div>
+                            <div class="preset" style="background:#0891b2"
+                                onclick="applyPreset('#0891b2','#ffffff',this)" title="Cyan"></div>
+                            <div class="preset" style="background:#be185d"
+                                onclick="applyPreset('#be185d','#ffffff',this)" title="Pink"></div>
+                            <div class="preset" style="background:#00f5a0;border:1px solid #333"
+                                onclick="applyPreset('#00f5a0','#080810',this)" title="Neon Dark"></div>
+                            <div class="preset" style="background:#1a1a2e"
+                                onclick="applyPreset('#ffffff','#1a1a2e',this)" title="White on Dark"></div>
+                        </div>
+
+                        <!-- OPTIONS -->
+                        <div class="sec-title">⚙️ Tuỳ chỉnh chi tiết</div>
+                        <div class="opts">
+                            <div>
+                                <span class="opt-label">Kích thước QR</span>
+                                <input type="range" id="qr-size" min="128" max="512" value="256" step="32"
+                                    oninput="document.getElementById('sz-lbl').textContent=this.value+'×'+this.value;debouncedGenerate()" />
+                                <div class="slider-val" id="sz-lbl">256×256</div>
+                            </div>
+                            <div>
+                                <span class="opt-label">Mức sửa lỗi</span>
+                                <select id="qr-level" onchange="debouncedGenerate()">
+                                    <option value="L">L — Thấp (7%)</option>
+                                    <option value="M" selected>M — Trung (15%)</option>
+                                    <option value="Q">Q — Cao (25%)</option>
+                                    <option value="H">H — Tối đa (30%)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <span class="opt-label">Màu mã QR</span>
+                                <div class="color-row">
+                                    <input type="color" id="qr-dark" value="#000000"
+                                        oninput="syncH('qr-dark','hx-dark');debouncedGenerate()" />
+                                    <input type="text" class="color-hex" id="hx-dark" value="#000000" maxlength="7"
+                                        oninput="syncP('hx-dark','qr-dark');debouncedGenerate()" />
+                                </div>
+                            </div>
+                            <div>
+                                <span class="opt-label">Màu nền</span>
+                                <div class="color-row">
+                                    <input type="color" id="qr-light" value="#ffffff"
+                                        oninput="syncH('qr-light','hx-light');debouncedGenerate()" />
+                                    <input type="text" class="color-hex" id="hx-light" value="#ffffff" maxlength="7"
+                                        oninput="syncP('hx-light','qr-light');debouncedGenerate()" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- LOGO -->
+                        <hr class="divider" />
+                        <div class="sec-title">🖼 Logo / Emoji ở giữa</div>
+                        <div class="logo-zone" onclick="document.getElementById('logo-file').click()">
+                            <input type="file" id="logo-file" accept="image/*" style="display:none"
+                                onchange="handleLogo(event)" />
+                            <img id="logo-preview" />
+                            <div id="logo-hint" style="font-size:12px;color:var(--muted);line-height:1.8">📁 Click để
+                                upload ảnh / logo<br><span style="font-size:10px;opacity:.6">PNG · JPG · SVG ·
+                                    WebP</span></div>
+                            <div id="logo-fname" style="font-size:10px;color:var(--accent);margin-top:4px;display:none">
+                            </div>
+                        </div>
+                        <div style="text-align:center;margin:12px 0;font-size:10px;color:var(--muted)">— hoặc chọn emoji
+                            —</div>
+                        <div class="emoji-row">
+                            <span class="emoji-btn" onclick="setEmoji(this,'🏠')">🏠</span>
+                            <span class="emoji-btn" onclick="setEmoji(this,'❤️')">❤️</span>
+                            <span class="emoji-btn" onclick="setEmoji(this,'⭐')">⭐</span>
+                            <span class="emoji-btn" onclick="setEmoji(this,'🔥')">🔥</span>
+                            <span class="emoji-btn" onclick="setEmoji(this,'💎')">💎</span>
+                            <span class="emoji-btn" onclick="setEmoji(this,'🚀')">🚀</span>
+                            <span class="emoji-btn" onclick="setEmoji(this,'📱')">📱</span>
+                            <span class="emoji-btn" onclick="setEmoji(this,'🌐')">🌐</span>
+                            <span class="emoji-btn" onclick="setEmoji(this,'🎵')">🎵</span>
+                            <span class="emoji-btn" onclick="setEmoji(this,'✅')">✅</span>
+                        </div>
+                        <div style="text-align:center;margin-top:10px">
+                            <button class="clear-logo-btn" onclick="clearLogo()">✕ Xoá logo / emoji</button>
+                        </div>
+                        <div id="logo-size-wrap" style="margin-top:16px;display:none">
+                            <span class="opt-label">Kích thước logo</span>
+                            <input type="range" id="logo-size" min="10" max="35" value="20"
+                                oninput="document.getElementById('ls-lbl').textContent=this.value+'%';debouncedGenerate()" />
+                            <div class="slider-val" id="ls-lbl">20%</div>
+                        </div>
+
+                        <button class="btn-gen" onclick="generateQR()">▶ Tạo Mã QR</button>
+                    </div><!-- /card -->
+                </div><!-- /col-form -->
+
+                <!-- RIGHT: LIVE PREVIEW -->
+                <div class="col-preview">
+                    <div class="preview-card">
+                        <div class="preview-header">
+                            <span class="preview-title">Xem trước QR</span>
+                            <span class="preview-status" id="preview-status">Chờ nhập...</span>
+                        </div>
+
+                        <div class="qr-canvas-wrap" id="qr-wrap">
+                            <div class="qr-placeholder" id="qr-placeholder">
+                                <div class="qr-placeholder-icon">◻️</div>
+                                <div class="qr-placeholder-text">Nhập nội dung bên trái<br />QR sẽ hiện ngay tại đây
+                                </div>
+                            </div>
+                            <div id="qr-display" style="display:none"></div>
+                        </div>
+
+                        <!-- DOWNLOAD ACTIONS -->
+                        <div id="dl-section" style="display:none">
+                            <div class="dl-grid">
+                                <button class="btn-dl primary" onclick="dlQR('png')"><span
+                                        class="btn-dl-icon">⬇</span>PNG</button>
+                                <button class="btn-dl primary" onclick="dlQR('jpg')"><span
+                                        class="btn-dl-icon">⬇</span>JPEG</button>
+                            </div>
+                            <div class="dl-row" style="margin-bottom:10px">
+                                <button class="btn-dl" onclick="dlQR('svg')"><span
+                                        class="btn-dl-icon">⬇</span>SVG</button>
+                                <button class="btn-dl" onclick="copyQR()"><span
+                                        class="btn-dl-icon">⎘</span>Copy</button>
+                                <button class="btn-dl" onclick="shareQR()"><span
+                                        class="btn-dl-icon">↗</span>Share</button>
+                            </div>
+                            <div class="dl-row">
+                                <button class="btn-dl" onclick="printQR()"><span
+                                        class="btn-dl-icon">🖨</span>Print</button>
+                                <button class="btn-dl" onclick="addCurrentToBatch()"><span
+                                        class="btn-dl-icon">📦</span>Batch</button>
+                                <button class="btn-dl" onclick="generateQR()"><span
+                                        class="btn-dl-icon">↺</span>Refresh</button>
+                            </div>
+                        </div>
+                    </div><!-- /preview-card -->
+                </div><!-- /col-preview -->
+
+            </div><!-- /create-layout -->
         </div><!-- /page-create -->
 
-        <!-- ══════════ BATCH ══════════ -->
-        <div id="page-batch" style="width:100%;max-width:620px;display:none">
-            <div class="card">
-                <div class="sec-title">📦 Tạo nhiều QR cùng lúc</div>
-                <p style="font-size:12px;color:var(--muted);margin-bottom:18px">Mỗi ô là 1 nội dung riêng → tạo ra 1 QR
-                    code riêng.</p>
-                <div id="batch-inputs"></div>
-                <button class="btn-add-batch" onclick="addBatchRow('')">+ Thêm mục</button>
-                <button class="btn-gen" style="margin-top:0" onclick="generateBatch()">▶ Tạo Tất Cả QR</button>
+        <!-- ══════════════════ BATCH ══════════════════ -->
+        <div id="page-batch" class="page-section">
+            <div class="batch-layout">
+                <div>
+                    <div class="card">
+                        <div class="sec-title">📦 Tạo nhiều QR cùng lúc</div>
+                        <p style="font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.7">Mỗi ô là 1 nội
+                            dung → 1 QR code riêng. Dùng màu & cài đặt từ tab Tạo QR.</p>
+                        <div id="batch-inputs"></div>
+                        <button class="btn-add-batch" onclick="addBatchRow('')">＋ Thêm mục</button>
+                        <button class="btn-gen" style="margin-top:0" onclick="generateBatch()">▶ Tạo Tất Cả QR</button>
+                    </div>
+                </div>
+                <div>
+                    <div class="card" id="batch-result-card" style="display:none">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+                            <div class="sec-title" style="margin-bottom:0;flex:1">Kết quả Batch</div>
+                            <button onclick="dlAllBatch()"
+                                style="padding:8px 16px;border:1px solid var(--accent);border-radius:9px;background:rgba(0,245,160,.1);color:var(--accent);font-family:'Space Mono',monospace;font-size:10px;cursor:pointer;letter-spacing:.5px;white-space:nowrap;margin-left:12px">⬇
+                                Tải tất cả</button>
+                        </div>
+                        <div class="batch-grid" id="batch-grid"></div>
+                    </div>
+                    <div class="card" id="batch-empty-card">
+                        <div class="batch-empty">
+                            <div style="font-size:48px;margin-bottom:14px;opacity:.3">📦</div>
+                            <div>Nhập nội dung bên trái<br /><span style="font-size:11px;opacity:.6">rồi nhấn "Tạo Tất
+                                    Cả QR"</span></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="batch-output" style="width:100%;margin-top:20px;display:none">
+        </div>
+
+        <!-- ══════════════════ SCAN ══════════════════ -->
+        <div id="page-scan" class="page-section">
+            <div style="max-width:680px;margin:0 auto">
                 <div class="card">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-                        <div class="sec-title" style="margin-bottom:0">Kết quả Batch</div>
-                        <button onclick="dlAllBatch()"
-                            style="padding:7px 14px;border:1px solid var(--accent);border-radius:8px;background:rgba(0,245,160,.1);color:var(--accent);font-family:'Space Mono',monospace;font-size:10px;cursor:pointer;white-space:nowrap">⬇
-                            Tải tất cả</button>
+                    <div class="sec-title">📷 Scan & Đọc QR Code</div>
+                    <div class="scan-tabs">
+                        <button class="scan-tab active" onclick="switchScanTab('upload',this)">📁 Upload ảnh</button>
+                        <button class="scan-tab" onclick="switchScanTab('camera',this)">📹 Camera trực tiếp</button>
                     </div>
-                    <div class="batch-grid" id="batch-grid"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ══════════ SCAN ══════════ -->
-        <div id="page-scan" style="width:100%;max-width:620px;display:none">
-            <div class="card">
-                <div class="sec-title">📷 Scan & Đọc QR Code</div>
-                <div class="scan-tabs">
-                    <button class="scan-tab active" onclick="switchScanTab('upload',this)">📁 Upload ảnh</button>
-                    <button class="scan-tab" onclick="switchScanTab('camera',this)">📹 Camera trực tiếp</button>
-                </div>
-                <!-- UPLOAD -->
-                <div class="scan-panel active" id="scan-upload">
-                    <div class="drop-zone" id="drop-zone">
-                        <input type="file" id="scan-file" accept="image/*" onchange="scanFromFile(event)" />
-                        <div style="font-size:40px;margin-bottom:10px">🖼️</div>
-                        <div style="font-size:13px;color:var(--text)">Kéo thả ảnh vào đây hoặc click để chọn</div>
-                        <div style="font-size:10px;color:var(--muted);margin-top:6px">PNG · JPG · WebP · GIF · BMP</div>
+                    <div class="scan-panel active" id="scan-upload">
+                        <div class="drop-zone" id="drop-zone">
+                            <input type="file" id="scan-file" accept="image/*" onchange="scanFromFile(event)" />
+                            <div style="font-size:44px;margin-bottom:12px">🖼️</div>
+                            <div style="font-size:14px;color:var(--text);font-weight:600">Kéo thả ảnh vào đây hoặc click
+                                để chọn</div>
+                            <div style="font-size:11px;color:var(--muted);margin-top:6px">PNG · JPG · WebP · GIF · BMP
+                            </div>
+                        </div>
+                        <canvas id="scan-canvas" style="display:none"></canvas>
                     </div>
-                    <canvas id="scan-canvas" style="display:none"></canvas>
-                </div>
-                <!-- CAMERA -->
-                <div class="scan-panel" id="scan-camera">
-                    <div class="cam-wrap">
-                        <video id="cam-view" autoplay playsinline muted></video>
-                        <div class="scan-line" id="scan-line"></div>
+                    <div class="scan-panel" id="scan-camera">
+                        <div class="cam-wrap">
+                            <video id="cam-view" autoplay playsinline muted></video>
+                            <div class="scan-line" id="scan-line"></div>
+                        </div>
+                        <canvas id="cam-canvas" style="display:none"></canvas>
+                        <button id="cam-btn" onclick="toggleCamera()"
+                            style="width:100%;margin-top:14px;padding:13px;border:1px solid var(--border2);border-radius:11px;background:var(--card2);color:var(--accent2);font-family:'Space Mono',monospace;font-size:13px;cursor:pointer;transition:all .2s;letter-spacing:.5px">
+                            📹 Bật Camera
+                        </button>
+                        <p style="font-size:11px;color:var(--muted);margin-top:10px;text-align:center;line-height:1.6">
+                            Cần cấp quyền camera. Hướng vào mã QR để tự động nhận dạng.</p>
                     </div>
-                    <canvas id="cam-canvas" style="display:none"></canvas>
-                    <button id="cam-btn" onclick="toggleCamera()"
-                        style="width:100%;margin-top:12px;padding:12px;border:1px solid var(--border2);border-radius:10px;background:var(--card2);color:var(--accent2);font-family:'Space Mono',monospace;font-size:12px;cursor:pointer;transition:all .2s;letter-spacing:.5px">
-                        📹 Bật Camera
-                    </button>
-                    <p style="font-size:10px;color:var(--muted);margin-top:8px;text-align:center">Cần cấp quyền camera.
-                        Hướng vào mã QR để tự động nhận dạng.</p>
-                </div>
-                <!-- RESULT -->
-                <div class="scan-result" id="scan-result">
-                    <div class="scan-result-label">🔍 Nội dung QR đọc được</div>
-                    <div class="scan-result-text" id="scan-text"></div>
-                    <div class="scan-actions">
-                        <button class="scan-act-btn" onclick="copyScan()">⎘ Sao chép</button>
-                        <button class="scan-act-btn" onclick="openScan()">🔗 Mở link</button>
-                        <button class="scan-act-btn" onclick="makeQRFromScan()">⚡ Tạo QR từ này</button>
+                    <div class="scan-result" id="scan-result">
+                        <div class="scan-result-label">Nội dung QR đọc được</div>
+                        <div class="scan-result-text" id="scan-text"></div>
+                        <div class="scan-actions">
+                            <button class="scan-act-btn" onclick="copyScan()">⎘ Sao chép</button>
+                            <button class="scan-act-btn" onclick="openScan()">🔗 Mở link</button>
+                            <button class="scan-act-btn" onclick="makeQRFromScan()">⚡ Tạo QR từ này</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ══════════ HISTORY ══════════ -->
-        <div id="page-history" style="width:100%;max-width:620px;display:none">
-            <div class="card">
-                <div class="sec-title">🕘 Lịch sử QR đã tạo</div>
-                <div id="hist-content"></div>
+        <!-- ══════════════════ HISTORY ══════════════════ -->
+        <div id="page-history" class="page-section">
+            <div style="max-width:780px;margin:0 auto">
+                <div class="card">
+                    <div class="sec-title">🕘 Lịch sử QR đã tạo</div>
+                    <div id="hist-content"></div>
+                </div>
             </div>
         </div>
 
@@ -1443,16 +1723,14 @@
         let curType = 'url', curStyle = 'classic', logoUrl = null, selEmoji = '';
         let camStream = null, camTimer = null, camOn = false;
         let batchQRs = [], batchCnt = 0;
+        let debTimer = null;
+        let hasQR = false;
 
         /* ── NAV ── */
         function switchNav(pg, btn) {
-            ['create', 'batch', 'scan', 'history'].forEach(p => {
-                const el = document.getElementById('page-' + p);
-                if (el) el.style.display = 'none';
-            });
+            document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-            const t = document.getElementById('page-' + pg);
-            if (t) t.style.display = (pg === 'create') ? 'flex' : 'block';
+            document.getElementById('page-' + pg).classList.add('active');
             btn.classList.add('active');
             if (pg === 'history') renderHistory();
             if (pg !== 'scan') stopCam();
@@ -1465,6 +1743,7 @@
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
             btn.classList.add('active');
             document.getElementById('panel-' + type).classList.add('active');
+            debouncedGenerate();
         }
 
         /* ── STYLE ── */
@@ -1472,6 +1751,7 @@
             curStyle = s;
             document.querySelectorAll('.style-opt').forEach(o => o.classList.remove('active'));
             el.classList.add('active');
+            debouncedGenerate();
         }
 
         /* ── COLORS ── */
@@ -1482,6 +1762,7 @@
             document.getElementById('qr-light').value = l; document.getElementById('hx-light').value = l;
             document.querySelectorAll('.preset').forEach(p => p.classList.remove('active'));
             el.classList.add('active');
+            debouncedGenerate();
         }
 
         /* ── LOGO ── */
@@ -1498,6 +1779,7 @@
                 document.getElementById('logo-fname').textContent = '✓ ' + f.name;
                 document.getElementById('logo-size-wrap').style.display = 'block';
                 document.getElementById('qr-level').value = 'H';
+                debouncedGenerate();
             };
             r.readAsDataURL(f);
         }
@@ -1507,6 +1789,7 @@
             btn.classList.add('active');
             document.getElementById('logo-size-wrap').style.display = 'block';
             document.getElementById('qr-level').value = 'H';
+            debouncedGenerate();
         }
         function clearLogo() {
             logoUrl = null; selEmoji = '';
@@ -1517,62 +1800,80 @@
             document.getElementById('logo-fname').style.display = 'none';
             document.getElementById('logo-size-wrap').style.display = 'none';
             document.getElementById('logo-file').value = '';
+            debouncedGenerate();
         }
 
         /* ── GET CONTENT ── */
         function getContent() {
-            const V = id => document.getElementById(id).value.trim();
+            const V = id => (document.getElementById(id) || {}).value || '';
+            const T = id => V(id).trim();
             switch (curType) {
-                case 'url': { const v = V('in-url'); if (!v) return { err: 'Vui lòng nhập URL' }; return { data: v.match(/^https?:\/\//) ? v : 'https://' + v, label: v }; }
-                case 'text': { const v = V('in-text'); if (!v) return { err: 'Vui lòng nhập nội dung' }; return { data: v, label: v.slice(0, 40) }; }
-                case 'wifi': { const s = V('wf-ssid'); if (!s) return { err: 'Vui lòng nhập tên WiFi' }; const p = document.getElementById('wf-pass').value, e = V('wf-enc'); return { data: `WIFI:T:${e};S:${s};P:${p};;`, label: 'WiFi: ' + s }; }
+                case 'url': { const v = T('in-url'); if (!v) return null; return { data: v.match(/^https?:\/\//) ? v : 'https://' + v, label: v }; }
+                case 'text': { const v = T('in-text'); if (!v) return null; return { data: v, label: v.slice(0, 40) }; }
+                case 'wifi': { const s = T('wf-ssid'); if (!s) return null; return { data: `WIFI:T:${T('wf-enc')};S:${s};P:${V('wf-pass')};;`, label: 'WiFi: ' + s }; }
                 case 'contact': {
-                    const n = V('ct-name'); if (!n) return { err: 'Vui lòng nhập họ tên' };
-                    return { data: `BEGIN:VCARD\nVERSION:3.0\nFN:${n}\nTEL:${V('ct-phone')}\nEMAIL:${V('ct-email')}\nURL:${V('ct-web')}\nORG:${V('ct-org')}\nTITLE:${V('ct-title2')}\nADR:;;${V('ct-addr')};;;;\nEND:VCARD`, label: 'vCard: ' + n };
+                    const n = T('ct-name'); if (!n) return null;
+                    return { data: `BEGIN:VCARD\nVERSION:3.0\nFN:${n}\nTEL:${T('ct-phone')}\nEMAIL:${T('ct-email')}\nURL:${T('ct-web')}\nORG:${T('ct-org')}\nTITLE:${T('ct-job')}\nADR:;;${T('ct-addr')};;;;\nEND:VCARD`, label: 'vCard: ' + n };
                 }
                 case 'email': {
-                    const t = V('em-to'); if (!t) return { err: 'Vui lòng nhập địa chỉ email' };
-                    return { data: `mailto:${t}?subject=${encodeURIComponent(V('em-sub'))}&body=${encodeURIComponent(document.getElementById('em-body').value)}`, label: 'Email: ' + t };
+                    const t = T('em-to'); if (!t) return null;
+                    return { data: `mailto:${t}?subject=${encodeURIComponent(T('em-sub'))}&body=${encodeURIComponent(V('em-body'))}`, label: 'Email: ' + t };
                 }
                 case 'sms': {
-                    const n = V('sms-num'); if (!n) return { err: 'Vui lòng nhập số điện thoại' };
-                    return { data: `sms:${n}?body=${encodeURIComponent(document.getElementById('sms-msg').value)}`, label: 'SMS: ' + n };
+                    const n = T('sms-num'); if (!n) return null;
+                    return { data: `sms:${n}?body=${encodeURIComponent(V('sms-msg'))}`, label: 'SMS: ' + n };
                 }
                 case 'maps': {
-                    const lat = V('map-lat'), lng = V('map-lng'), q = V('map-query'), nm = V('map-name');
+                    const lat = T('map-lat'), lng = T('map-lng'), q = T('map-query'), nm = T('map-name');
                     if (lat && lng) return { data: `geo:${lat},${lng}?q=${lat},${lng}(${nm || 'Location'})`, label: `Maps: ${lat},${lng}` };
                     if (q) return { data: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`, label: 'Maps: ' + q };
-                    return { err: 'Nhập tọa độ hoặc địa chỉ tìm kiếm' };
+                    return null;
                 }
-                case 'phone': { const n = V('ph-num'); if (!n) return { err: 'Vui lòng nhập số điện thoại' }; return { data: 'tel:' + n, label: 'Phone: ' + n }; }
+                case 'phone': { const n = T('ph-num'); if (!n) return null; return { data: 'tel:' + n, label: 'Phone: ' + n }; }
                 case 'appstore': {
-                    const id = V('app-id'); if (!id) return { err: 'Vui lòng nhập App ID' };
-                    const pl = V('app-platform');
-                    let url = id;
+                    const id = T('app-id'); if (!id) return null;
+                    const pl = T('app-platform'); let url = id;
                     if (pl === 'apple') url = `https://apps.apple.com/app/id${id}`;
                     else if (pl === 'google') url = `https://play.google.com/store/apps/details?id=${id}`;
                     else if (pl === 'huawei') url = `https://appgallery.huawei.com/#/app/${id}`;
                     return { data: url, label: 'App: ' + id };
                 }
             }
+            return null;
         }
 
-        /* ── DRAW QR WITH STYLE ── */
-        function drawStyledQR(srcCanvas, dark, light) {
+        /* ── DEBOUNCED LIVE PREVIEW ── */
+        function debouncedGenerate() {
+            clearTimeout(debTimer);
+            const res = getContent();
+            if (!res) {
+                setStatus('Chờ nhập...', '');
+                return;
+            }
+            setStatus('Đang cập nhật...', '');
+            debTimer = setTimeout(() => generateQR(true), 600);
+        }
+
+        function setStatus(text, cls) {
+            const el = document.getElementById('preview-status');
+            el.textContent = text; el.className = 'preview-status' + (cls ? ' ' + cls : '');
+        }
+
+        /* ── DRAW STYLED QR ── */
+        function drawStyled(srcCanvas, dark, light) {
             if (curStyle === 'classic') return srcCanvas;
             const w = srcCanvas.width, h = srcCanvas.height;
             const nc = document.createElement('canvas'); nc.width = w; nc.height = h;
             const ctx = nc.getContext('2d');
             ctx.fillStyle = light; ctx.fillRect(0, 0, w, h);
-            const src = srcCanvas.getContext('2d');
-            const d = src.getImageData(0, 0, w, h).data;
+            const data = srcCanvas.getContext('2d').getImageData(0, 0, w, h).data;
             ctx.fillStyle = dark;
             for (let y = 0; y < h; y++) {
                 for (let x = 0; x < w; x++) {
                     const i = (y * w + x) * 4;
-                    if (d[i] < 128) {
+                    if (data[i] < 128) {
                         if (curStyle === 'rounded') { ctx.beginPath(); ctx.roundRect(x, y, 1, 1, 0.4); ctx.fill(); }
-                        else if (curStyle === 'dots') { ctx.beginPath(); ctx.arc(x + .5, y + .5, .42, 0, Math.PI * 2); ctx.fill(); }
+                        else { ctx.beginPath(); ctx.arc(x + .5, y + .5, .42, 0, Math.PI * 2); ctx.fill(); }
                     }
                 }
             }
@@ -1608,29 +1909,54 @@
                 new QRCode(cont, { text, width: size, height: size, colorDark: dark, colorLight: light, correctLevel: QRCode.CorrectLevel[level] });
                 setTimeout(() => {
                     let c = cont.querySelector('canvas'); if (!c) { cb && cb(null); return; }
-                    if (curStyle !== 'classic') { const nc = drawStyledQR(c, dark, light); cont.innerHTML = ''; cont.appendChild(nc); c = nc; }
+                    if (curStyle !== 'classic') { const nc = drawStyled(c, dark, light); cont.innerHTML = ''; cont.appendChild(nc); c = nc; }
                     cb && cb(c);
                 }, 150);
             } catch (e) { cb && cb(null); }
         }
 
-        /* ── GENERATE ── */
-        function generateQR() {
+        /* ── MAIN GENERATE ── */
+        function generateQR(silent = false) {
             const res = getContent();
-            if (res && res.err) { toast(res.err, 'error'); return; }
+            if (!res) {
+                if (!silent) toast('Vui lòng nhập nội dung', 'error');
+                return;
+            }
             const size = parseInt(document.getElementById('qr-size').value);
             const level = document.getElementById('qr-level').value;
             const dark = document.getElementById('qr-dark').value;
             const light = document.getElementById('qr-light').value;
-            const disp = document.getElementById('qr-display');
-            buildQR(disp, res.data, size, dark, light, level, (c) => {
-                if (!c) { toast('⚠ Không thể tạo QR. Nội dung quá dài?', 'error'); return; }
+
+            // Show generating state
+            const wrap = document.getElementById('qr-wrap');
+            wrap.classList.add('generating');
+            setStatus('Đang tạo...', '');
+
+            const tempDiv = document.createElement('div');
+            buildQR(tempDiv, res.data, size, dark, light, level, (c) => {
+                wrap.classList.remove('generating');
+                if (!c) {
+                    setStatus('Lỗi tạo QR', '');
+                    if (!silent) toast('⚠ Không thể tạo QR', 'error');
+                    return;
+                }
                 overlayLogo(c, (fc) => {
+                    // Show in preview
+                    const disp = document.getElementById('qr-display');
+                    const ph = document.getElementById('qr-placeholder');
                     disp.innerHTML = ''; disp.appendChild(fc);
-                    document.getElementById('output').classList.add('show');
-                    document.getElementById('output').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    saveHist({ type: curType, data: res.data, label: res.label || res.data, dark, light, level, size });
-                    toast('✓ Mã QR đã tạo!', 'success');
+                    disp.style.display = 'flex'; disp.style.justifyContent = 'center';
+                    ph.style.display = 'none';
+                    document.getElementById('dl-section').style.display = 'block';
+                    hasQR = true;
+                    setStatus('✓ Scan được', 'ready');
+                    if (!silent) {
+                        saveHist({ type: curType, data: res.data, label: res.label || res.data, dark, light, level, size });
+                        toast('✓ Mã QR đã tạo!', 'success');
+                    } else {
+                        // Silent save on first real generate
+                        saveHist({ type: curType, data: res.data, label: res.label || res.data, dark, light, level, size });
+                    }
                 });
             });
         }
@@ -1671,7 +1997,7 @@
             w.document.close(); setTimeout(() => { w.focus(); w.print(); }, 600);
         }
         function addCurrentToBatch() {
-            const res = getContent(); if (res && res.err) return;
+            const res = getContent(); if (!res) return;
             switchNav('batch', document.querySelector('.nav-tab:nth-child(2)'));
             addBatchRow(res.data);
             toast('✓ Đã thêm vào Batch', 'success');
@@ -1681,8 +2007,10 @@
         function addBatchRow(val = '') {
             batchCnt++; const id = 'br' + batchCnt;
             const div = document.createElement('div'); div.className = 'batch-row'; div.id = id;
-            const ta = document.createElement('textarea'); ta.placeholder = `URL hoặc nội dung #${batchCnt}...`; ta.value = val;
-            const btn = document.createElement('button'); btn.className = 'batch-del'; btn.textContent = '✕';
+            const ta = document.createElement('textarea');
+            ta.placeholder = `URL hoặc nội dung #${batchCnt}...`; ta.value = val;
+            const btn = document.createElement('button');
+            btn.className = 'batch-del'; btn.innerHTML = '✕'; btn.title = 'Xoá mục này';
             btn.onclick = () => document.getElementById(id).remove();
             div.appendChild(ta); div.appendChild(btn);
             document.getElementById('batch-inputs').appendChild(div);
@@ -1692,15 +2020,16 @@
             const items = rows.map(r => r.value.trim()).filter(Boolean);
             if (!items.length) { toast('Vui lòng nhập ít nhất 1 mục', 'error'); return; }
             const grid = document.getElementById('batch-grid'); grid.innerHTML = ''; batchQRs = [];
-            document.getElementById('batch-output').style.display = 'block';
+            document.getElementById('batch-result-card').style.display = 'block';
+            document.getElementById('batch-empty-card').style.display = 'none';
             const dark = document.getElementById('qr-dark').value;
             const light = document.getElementById('qr-light').value;
             const level = document.getElementById('qr-level').value;
             items.forEach((item, i) => {
                 const card = document.createElement('div'); card.className = 'batch-item';
-                const qDiv = document.createElement('div'); qDiv.style.cssText = 'background:#fff;border-radius:8px;overflow:hidden;display:flex;justify-content:center';
-                const lbl = document.createElement('div'); lbl.className = 'batch-item-label'; lbl.textContent = item;
-                const dlBtn = document.createElement('button'); dlBtn.className = 'batch-dl'; dlBtn.textContent = '⬇ Tải PNG';
+                const qDiv = document.createElement('div'); qDiv.style.cssText = 'background:#fff;border-radius:8px;overflow:hidden;display:flex;justify-content:center;align-items:center';
+                const lbl = document.createElement('div'); lbl.className = 'batch-item-label'; lbl.textContent = item; lbl.title = item;
+                const dlBtn = document.createElement('button'); dlBtn.className = 'batch-dl-btn'; dlBtn.textContent = '⬇ Tải PNG';
                 card.append(qDiv, lbl, dlBtn); grid.appendChild(card);
                 try {
                     new QRCode(qDiv, { text: item, width: 160, height: 160, colorDark: dark, colorLight: light, correctLevel: QRCode.CorrectLevel[level] });
@@ -1784,13 +2113,15 @@
             document.getElementById('in-url').value = lastScan;
             document.getElementById('in-text').value = lastScan;
             switchNav('create', document.querySelector('.nav-tab'));
-            toast('✓ Đã điền nội dung, nhấn Tạo QR!', 'success');
+            toast('✓ Đã điền nội dung, đang tạo QR...', 'success');
             setTimeout(generateQR, 300);
         }
 
         /* ── HISTORY ── */
         function saveHist(item) {
             let h = JSON.parse(localStorage.getItem('qrh') || '[]');
+            // Avoid duplicate consecutive saves
+            if (h.length && h[0].data === item.data && h[0].type === item.type) return;
             item.ts = Date.now(); h.unshift(item);
             if (h.length > 50) h = h.slice(0, 50);
             localStorage.setItem('qrh', JSON.stringify(h));
@@ -1798,25 +2129,30 @@
         function renderHistory() {
             const h = JSON.parse(localStorage.getItem('qrh') || '[]');
             const ct = document.getElementById('hist-content');
-            if (!h.length) { ct.innerHTML = '<div class="history-empty">📭 Chưa có lịch sử<br><span style="font-size:11px;margin-top:6px;display:block">Hãy tạo mã QR đầu tiên!</span></div>'; return; }
-            ct.innerHTML = '<div class="hist-list" id="hlist"></div><button class="hist-clear" onclick="clearHist()">🗑 Xoá toàn bộ lịch sử (' + h.length + ')</button>';
+            if (!h.length) {
+                ct.innerHTML = '<div class="history-empty"><div style="font-size:52px;margin-bottom:16px;opacity:.25">📭</div><div>Chưa có lịch sử<br/><span style="font-size:11px;opacity:.6;display:block;margin-top:6px">Hãy tạo mã QR đầu tiên!</span></div></div>';
+                return;
+            }
+            ct.innerHTML = '<div class="hist-list" id="hlist"></div>';
+            ct.innerHTML += '<button class="hist-clear" onclick="clearHist()">🗑 Xoá toàn bộ lịch sử (' + h.length + ' mục)</button>';
             const list = document.getElementById('hlist');
             h.forEach((item, i) => {
                 const el = document.createElement('div'); el.className = 'hist-item';
                 const th = document.createElement('div'); th.className = 'hist-thumb';
                 const date = new Date(item.ts).toLocaleString('vi-VN');
-                el.innerHTML = `<div class="hist-info">
-      <div class="hist-type">${item.type.toUpperCase()}</div>
-      <div class="hist-data" title="${item.data}">${item.label || item.data}</div>
-      <div class="hist-time">${date}</div>
-    </div>
-    <div class="hist-actions">
-      <button class="hist-btn" onclick="replayHist(${i})">↺ Tạo lại</button>
-      <button class="hist-btn danger" onclick="delHist(${i})">✕</button>
-    </div>`;
+                el.innerHTML = `
+      <div class="hist-info">
+        <div class="hist-type">${item.type.toUpperCase()}</div>
+        <div class="hist-data" title="${item.data}">${item.label || item.data}</div>
+        <div class="hist-time">${date}</div>
+      </div>
+      <div class="hist-actions">
+        <button class="hist-btn" onclick="replayHist(${i})">↺ Tạo lại</button>
+        <button class="hist-btn danger" onclick="delHist(${i})" title="Xoá">🗑</button>
+      </div>`;
                 el.insertBefore(th, el.firstChild);
                 list.appendChild(el);
-                try { new QRCode(th, { text: item.data, width: 64, height: 64, colorDark: item.dark || '#000', colorLight: item.light || '#fff', correctLevel: QRCode.CorrectLevel[item.level || 'M'] }); } catch (e) { }
+                try { new QRCode(th, { text: item.data, width: 68, height: 68, colorDark: item.dark || '#000', colorLight: item.light || '#fff', correctLevel: QRCode.CorrectLevel[item.level || 'M'] }); } catch (e) { }
             });
         }
         function replayHist(i) {
@@ -1842,17 +2178,14 @@
         let toastT;
         function toast(msg, type = '') {
             clearTimeout(toastT); const t = document.getElementById('toast');
-            t.textContent = msg; t.className = 'toast ' + (type || ''); t.classList.add('show');
+            t.textContent = msg; t.className = 'toast' + (type ? ' ' + type : ''); t.classList.add('show');
             toastT = setTimeout(() => t.classList.remove('show'), 2800);
         }
 
         /* ── INIT ── */
         document.addEventListener('DOMContentLoaded', () => {
-            // Batch default rows
             addBatchRow(''); addBatchRow(''); addBatchRow('');
-            // Enter key
             document.getElementById('in-url').addEventListener('keydown', e => { if (e.key === 'Enter') generateQR(); });
-            // Drag drop scan
             const dz = document.getElementById('drop-zone');
             dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag') });
             dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
